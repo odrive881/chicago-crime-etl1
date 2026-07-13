@@ -166,6 +166,7 @@ All log output is JSON-structured:
 ## Requirements
 
 ```
+greenlet==3.0.3
 pandas>=2.0
 sqlalchemy>=2.0
 psycopg2-binary
