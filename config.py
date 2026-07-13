@@ -11,5 +11,4 @@ class Config:
     raw_file_path:      str     = os.getenv("RAW_FILE_PATH")
     target_table:       str     = os.getenv("TARGET_TABLE")
     target_schema:      str     = os.getenv("TARGET_SCHEMA")
-    chunk_size:         int     = int(os.getenv("CHUNK_SIZE"))
     max_rejection_rate: float   = float(os.getenv("MAX_REJECTION_RATE"))
