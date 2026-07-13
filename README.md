@@ -10,12 +10,12 @@ An ETL pipeline that ingests the [Chicago Crimes dataset](https://data.cityofchi
 chicago_etl/
 ├── pipeline.py           # Orchestration and ETL logic, loads the DataFrame
 ├── transform.py     	  # Transformation logic
-├── export.py		  # Export protocol, sends data to Postgres
+├── export.py             # Export protocol, sends data to Postgres
 ├── validate.py           # Validation contracts and DataValidationError
-├── config.py 		  # Config dataclass, loaded from .env
+├── config.py             # Config dataclass, loaded from .env
 ├── queries.py	          # SQL strings as named constants
 ├── .env.example          # Template — copy to .env and fill in your values
-├── chicago_data  	  # Data folder
+├── chicago_data          # Data folder
 ├── .gitignore
 ├── requirements.txt
 └── README.md
