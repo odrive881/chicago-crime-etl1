@@ -153,6 +153,11 @@ All log output is JSON-structured:
     "time": "2026-07-12 10:00:25",
     "message": "Dataframe successfully exported to SQL"
   }
+}{
+  "SUCCESS": {
+    "time": "2026-07-12 10:01:56",
+    "message": "Summary tables created in Postgres"
+  }
 }
 ```
 
