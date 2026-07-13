@@ -144,10 +144,10 @@ All log output is JSON-structured:
 }{
   "Transformation": "Complete",
   "time": "2026-07-12 09:58:54",
-  "nulls dropped": "total nulls dropped: 357824",
-  "duplicate dropped": "total duplicates dropped: 0",
-  "columns standardized": 20,
-  "out of bounds": "out of bounds cases dropped: 25932"
+  "nulls dropped": "357824",
+  "duplicate dropped": "0",
+  "columns standardized": "20",
+  "out of bounds": "25932"
 }{
   "SUCCESS": {
     "time": "2026-07-12 10:00:25",
