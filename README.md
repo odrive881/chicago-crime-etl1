@@ -28,7 +28,7 @@ chicago_etl/
 ### 1. Clone and install dependencies
 
 ```bash
-git clone https://github.com/your-username/chicago-crime-etl.git
+git clone https://github.com/odrive881/chicago-crime-etl1.git
 cd chicago-crime-etl
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
