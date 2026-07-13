@@ -170,7 +170,6 @@ pandas>=2.0
 sqlalchemy>=2.0
 psycopg2-binary
 python-dotenv
-pytest
 ```
 
 Python 3.10+ recommended.
