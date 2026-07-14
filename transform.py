@@ -53,7 +53,7 @@ def export_log(nulls_check, duplicate_check, columns_text_check, out_of_bounds_c
            "nulls dropped": nulls_check,
            "duplicate dropped": duplicate_check,
            "columns standardized": columns_text_check,
-           "out of bounds": out_of_bounds_check}
+           "out of bounds dropped": out_of_bounds_check}
     with open("chicago_data/pipeline_log.json", "a") as file:
         json.dump(log, file, indent=2)
 

@@ -13,7 +13,7 @@ from export import create_summaries
 
 from config import Config
 
-
+print("Loading raw data...")
 """Main ingestion logic"""
 dtype_map = {
     "ID": "uint32",
@@ -42,12 +42,10 @@ dtype_map = {
 columns = correct_columns()
 df = pd.read_csv(Config.raw_file_path, usecols=columns,  dtype=dtype_map, parse_dates=['Date'], date_format='%m/%d/%Y %H:%M:%S %p')
 
-
 df["Month"] = df["Date"].dt.month.astype('uint16')
 df["Day"] = df["Date"].dt.day_name().astype('category')
 df["Hour"] = df["Date"].dt.hour.astype('uint16')
-
-memory_usage = df.memory_usage(deep=True).sum()
+print("Raw data loaded")
 
 """Validation, Transformation, Export to SQL"""
 validate_raw(df, columns)
