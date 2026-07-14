@@ -30,7 +30,7 @@ chicago_etl/
 ```bash
 git clone https://github.com/odrive881/chicago-crime-etl1.git
 cd chicago-crime-etl1
-python -m venv .venv
+py -3.14 -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
@@ -166,7 +166,6 @@ All log output is JSON-structured:
 ## Requirements
 
 ```
-greenlet==3.0.3
 pandas>=2.0
 sqlalchemy>=2.0
 psycopg2-binary
