@@ -8,6 +8,7 @@
 # =============================================================================
 /chicago_data/*
 !/chicago_data/.gitkeep
+*.jsonl
 *.csv
 *.parquet
 *.json

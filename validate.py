@@ -1,27 +1,16 @@
 import pandas as pd
 from datetime import datetime
-import json
 from config import Config
+from logger import get_logger, timed_segment
+
+logger = get_logger("validate")
+
 
 def correct_columns():
     return ["ID", "Case Number", "Date", "Block", "IUCR", "Primary Type", "Description",
                "Location Description", "Arrest", "Domestic", "District", "FBI Code", "X Coordinate",
                "Y Coordinate", "Year", "Latitude", "Longitude"]
 
-def success_message_to_json():
-    validation_msg = {"validation": "Complete",
-                      "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-
-    with open("chicago_data/pipeline_log.json", "a") as file:
-        json.dump(validation_msg, file, indent=2)
-
-def error_message_to_json(assertion_error):
-    error_msg = {"validation": "Failed",
-                 "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                 "message": assertion_error}
-
-    with open("chicago_data/pipeline_log.json", "a") as file:
-        json.dump(error_msg, file, indent=2)
 
 def validate_raw(dataframe, column_map):
     """
@@ -33,11 +22,10 @@ def validate_raw(dataframe, column_map):
     - Makes sure there isn't an anomalous amount of nulls
      """
 
-    # assert columns in df.columns
-    print("Validating dataframe...")
+
     columns = column_map
 
-    try:
+    with timed_segment(logger, "Validation"):
 
         for col in columns:
             assert col in dataframe.columns, "Not all columns required are present in the dataframe"
@@ -80,10 +68,3 @@ def validate_raw(dataframe, column_map):
             null_values_percent = (dataframe[col].isnull().sum() / dataframe[col].shape[0])
             assert null_values_percent < Config.max_rejection_rate, f"Too many null values present in {col}"
 
-    except AssertionError as e:
-        error_message_to_json(e)
-        raise e
-
-    finally:
-        print("Validation complete!")
-        success_message_to_json()

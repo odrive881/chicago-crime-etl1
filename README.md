@@ -14,6 +14,7 @@ chicago_etl/
 ├── validate.py           # Validation contracts and DataValidationError
 ├── config.py             # Config dataclass, loaded from .env
 ├── queries.py	          # SQL strings as named constants
+├── logger.py             # Contains logger and console display logic
 ├── .env.example          # Template — copy to .env and fill in your values
 ├── chicago_data          # Data folder
 ├── .gitignore
@@ -135,30 +136,19 @@ All configuration lives in `.env`. No values are hardcoded in the source.
 
 ## Logging
 
-All log output is JSON-structured:
+All log output is JSON-structured, readable for both humans and any log aggregator:
 
 ```json
-{
-  "validation": "Complete",
-  "time": "2026-07-12 09:58:34"
-}{
-  "Transformation": "Complete",
-  "time": "2026-07-12 09:58:54",
-  "nulls dropped": "357824",
-  "duplicate dropped": "0",
-  "columns standardized": "20",
-  "out of bounds": "25932"
-}{
-  "SUCCESS": {
-    "time": "2026-07-12 10:00:25",
-    "message": "Dataframe successfully exported to SQL"
-  }
-}{
-  "SUCCESS": {
-    "time": "2026-07-12 10:01:56",
-    "message": "Summary tables created in Postgres"
-  }
-}
+{"time": "2026-07-14 13:05:08", "segment": "validate", "level": "INFO", "message": "Validation started"}
+{"time": "2026-07-14 13:05:11", "segment": "validate", "level": "INFO", "message": "Validation complete", "duration_seconds": 2.306}
+{"time": "2026-07-14 13:05:11", "segment": "transform", "level": "INFO", "message": "Transformation started"}
+{"time": "2026-07-14 13:05:30", "segment": "transform", "level": "INFO", "message": "Transformation complete", "duration_seconds": 18.928, "details": {"nulls_dropped": "357824", "duplicates_dropped": "0", "columns_standardized": "20", "out_of_bounds_dropped": "25932"}}
+{"time": "2026-07-14 13:05:30", "segment": "export", "level": "INFO", "message": "Export started"}
+{"time": "2026-07-14 13:05:30", "segment": "export", "level": "WARNING", "message": "The Dataframe already exists in SQL, export stopped"}
+{"time": "2026-07-14 13:05:30", "segment": "export", "level": "INFO", "message": "Export complete", "duration_seconds": 0.295, "details": {"result": "skipped, dataframe already exists"}}
+{"time": "2026-07-14 13:05:30", "segment": "export", "level": "INFO", "message": "Summary tables export started"}
+{"time": "2026-07-14 13:05:30", "segment": "export", "level": "WARNING", "message": "Summary tables already exist, skipping load"}
+{"time": "2026-07-14 13:05:30", "segment": "export", "level": "INFO", "message": "Summary tables export complete", "duration_seconds": 0.035, "details": {"result": "skipped, summary tables already exist"}}
 ```
 
 ---

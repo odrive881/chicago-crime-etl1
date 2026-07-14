@@ -1,6 +1,8 @@
 import pandas as pd
-import json
-from datetime import datetime
+from logger import get_logger, timed_segment
+
+logger = get_logger("transform")
+
 
 def drop_nulls(dataframe):
     """Drops nulls in dataframe"""
@@ -45,32 +47,18 @@ def classify_severity(dataframe):
                                             else "other")
 
 
-def export_log(nulls_check, duplicate_check, columns_text_check, out_of_bounds_check):
-    """Exports log to json file"""
-    log_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    log = {"Transformation": "Complete",
-           "time": log_date,
-           "nulls dropped": nulls_check,
-           "duplicate dropped": duplicate_check,
-           "columns standardized": columns_text_check,
-           "out of bounds dropped": out_of_bounds_check}
-    with open("chicago_data/pipeline_log.json", "a") as file:
-        json.dump(log, file, indent=2)
-
-
 def transform(dataframe):
     """Master function for transforming dataframe"""
-    print("Transforming dataframe...")
-    dataframe, log1 = drop_nulls(dataframe)
-    dataframe, log2 = deduplicate(dataframe)
-    dataframe, log3 = standardize_text(dataframe)
-    dataframe, log4 = remove_out_of_bounds(dataframe)
 
-    export_log(
-        log1, log2, log3, log4
-    )
+    with timed_segment(logger, "Transformation") as details:
+        dataframe, log1 = drop_nulls(dataframe)
+        dataframe, log2 = deduplicate(dataframe)
+        dataframe, log3 = standardize_text(dataframe)
+        dataframe, log4 = remove_out_of_bounds(dataframe)
 
-    print("Transformation complete!")
+        details["nulls_dropped"] = log1
+        details["duplicates_dropped"] = log2
+        details["columns_standardized"] = log3
+        details["out_of_bounds_dropped"] = log4
+
     return dataframe
-
-
