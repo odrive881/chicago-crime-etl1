@@ -48,6 +48,7 @@ Open `.env` and fill in your values:
 DB_URL=postgresql://user:password@localhost:5432/crime_database
 RAW_FILE_PATH=chicago_data/Crimes_-_2001_to_Present.csv
 TARGET_TABLE=crimes
+TARGET_SCHEMA=public
 MAX_REJECTION_RATE=0.05
 ```
 
